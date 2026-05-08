@@ -1,0 +1,323 @@
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+/* BODY FIX */
+
+body{
+   width: 100%;
+  overflow-x: hidden;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
+.top-bar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;   /* ADD */
+  width: 100%;
+  height: 55px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 15px;
+
+  background: linear-gradient(
+    90deg,
+    #ff00cc,
+    #ff0000,
+    #000000,
+    #8a679b
+  );
+
+  background-size: 300% 300%;
+  animation: gradientMove 6s ease infinite;
+
+  z-index: 1000;
+}
+
+/* =========================
+   ANIMATION
+========================= */
+
+@keyframes gradientMove{
+
+  0%{
+    background-position: 0% 50%;
+  }
+
+  50%{
+    background-position: 100% 50%;
+  }
+
+  100%{
+    background-position: 0% 50%;
+  }
+}
+
+/* =========================
+   MENU ICON
+========================= */
+
+.menu-icon{
+  width: 28px;
+  height: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  cursor: pointer;
+}
+
+.menu-icon span{
+  width: 100%;
+  height: 3px;
+
+  background-color: white;
+  border-radius: 5px;
+}
+
+/* =========================
+   TOP RIGHT ICONS
+========================= */
+
+.top-left-items{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.top-image{
+  width: 32px;
+  height: 32px;
+
+  border-radius: 50%;
+
+  background-color: white;
+  color: black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.top-image:hover{
+  transform: scale(1.1);
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+  position: fixed;
+
+  top: 55px;
+  left: -250px;   /* SAME AS WIDTH */
+
+  width: 250px;
+
+  /* FIX */
+  height: calc(100vh - 55px);
+
+  padding: 10px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  transition: 0.3s ease;
+
+  z-index: 999;
+
+  box-shadow: 2px 0px 10px rgba(49, 3, 3, 0.3);
+
+  background: linear-gradient(
+    270deg,
+    #e7d1e3,
+    #333349,
+    #cc9373
+  );
+
+  background-size: 400% 400%;
+  animation: gradientMove 6s ease infinite;
+}
+
+/* OPEN SIDEBAR */
+
+.sidebar.active{
+  left: 0;
+}
+
+/* =========================
+   SIDEBAR HEADING
+========================= */
+
+.heading-box{
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 10px;
+
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.heading-dashboard{
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* =========================
+   CANCEL BUTTON
+========================= */
+
+.cancel-button{
+  width: 22px;
+  height: 22px;
+
+  cursor: pointer;
+
+  filter: brightness(0) invert(1);
+
+  transition: 0.3s ease;
+}
+
+.cancel-button:hover{
+  transform: rotate(90deg) scale(1.1);
+}
+
+/* =========================
+   MENU LIST
+========================= */
+
+.menu-list{
+  margin-top: 10px;
+}
+
+/* =========================
+   MENU ITEM
+========================= */
+
+.slider-items{
+  margin-bottom: 8px;
+}
+
+/* =========================
+   MENU TITLE
+========================= */
+
+.menu-title{
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px;
+
+  color: white;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+/* HOVER */
+
+.menu-title:hover{
+  background: rgba(255,255,255,0.1);
+  transform: scale(1.02);
+}
+
+/* =========================
+   ARROW
+========================= */
+
+.arrowkey{
+  margin-left: auto;
+}
+
+/* =========================
+   SUB MENU
+========================= */
+
+.submenu{
+  margin-top: 5px;
+  padding-left: 15px;
+}
+
+/* LINK */
+
+.submenu a{
+  display: block;
+}
+
+/* SUBMENU ITEM */
+
+.submenu li{
+  list-style: none;
+
+  margin-top: 5px;
+  padding: 10px;
+
+  border-radius: 6px;
+
+  color: #dddddd;
+
+  transition: 0.3s ease;
+}
+
+/* HOVER */
+
+.submenu li:hover{
+  background: rgba(255,255,255,0.1);
+
+  color: #00ffcc;
+
+  transform: translateX(5px);
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
+
+.main-content{
+  width: 100%;
+  /* FIX */
+  margin-top: 55px;
+  background-color:hotpink;
+  overflow-x: hidden;
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+.sidebar::-webkit-scrollbar{
+  width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-thumb{
+  background-color: rgba(255,255,255,0.4);
+  border-radius: 10px;
+}
+
