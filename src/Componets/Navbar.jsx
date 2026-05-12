@@ -1,6 +1,6 @@
 // App.jsx
 
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { HashRouter, Routes, Route } from "react-router-dom"
 
 import Firstdashboard from "../Componets/Firstdashboard"
 import Dashboard from "../Sidebar_items/Home/Dashboard"
@@ -28,7 +28,7 @@ import Manage_Lib from "../Sidebar_items/Lib_Management/Manage_Lib"
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
 
       <Routes>
 
@@ -78,7 +78,7 @@ function App() {
 
       </Routes>
 
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 

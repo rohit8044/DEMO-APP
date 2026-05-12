@@ -1,4 +1,3 @@
-
 *{
   margin: 0;
   padding: 0;
@@ -6,11 +5,14 @@
   text-decoration: none;
 }
 
-/* BODY FIX */
+/* =========================
+   BODY
+========================= */
 
 body{
-   width: 100%;
+  width: 100%;
   overflow-x: hidden;
+  font-family: sans-serif;
 }
 
 /* =========================
@@ -19,9 +21,11 @@ body{
 
 .top-bar{
   position: fixed;
+
   top: 0;
   left: 0;
-  right: 0;   /* ADD */
+  right: 0;
+
   width: 100%;
   height: 55px;
 
@@ -30,6 +34,8 @@ body{
   justify-content: space-between;
 
   padding: 0 15px;
+
+  z-index: 5000;
 
   background: linear-gradient(
     90deg,
@@ -40,9 +46,8 @@ body{
   );
 
   background-size: 300% 300%;
-  animation: gradientMove 6s ease infinite;
 
-  z-index: 1000;
+  animation: gradientMove 6s ease infinite;
 }
 
 /* =========================
@@ -69,26 +74,57 @@ body{
 ========================= */
 
 .menu-icon{
-  width: 28px;
-  height: 20px;
-
+  width: 30px;
+  height: 22px;
+  z-index: 999;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   cursor: pointer;
+
+  position: relative;
+
+  z-index: 6000;
 }
+
+/* MENU LINES */
 
 .menu-icon span{
   width: 100%;
   height: 3px;
 
   background-color: white;
-  border-radius: 5px;
+
+  border-radius: 10px;
+
+  transition: 0.4s ease;
 }
 
 /* =========================
-   TOP RIGHT ICONS
+   ACTIVE MENU ICON
+========================= */
+
+/* TOP LINE */
+
+.menu-icon.active span:nth-child(1){
+  transform: translateY(9px) rotate(45deg);
+}
+
+/* MIDDLE LINE */
+
+.menu-icon.active span:nth-child(2){
+  opacity: 0;
+}
+
+/* BOTTOM LINE */
+
+.menu-icon.active span:nth-child(3){
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* =========================
+   RIGHT ICONS
 ========================= */
 
 .top-left-items{
@@ -97,9 +133,11 @@ body{
   gap: 12px;
 }
 
+/* PROFILE ICON */
+
 .top-image{
-  width: 32px;
-  height: 32px;
+  width: 35px;
+  height: 35px;
 
   border-radius: 50%;
 
@@ -127,23 +165,21 @@ body{
   position: fixed;
 
   top: 55px;
-  left: -250px;   /* SAME AS WIDTH */
+  left: -250px;
 
   width: 250px;
-
-  /* FIX */
   height: calc(100vh - 55px);
 
-  padding: 10px;
+  z-index: 3000;
 
-  overflow-y: auto;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 
-  transition: 0.3s ease;
+  overflow: hidden;
 
-  z-index: 999;
+  transition: left 0.3s ease;
 
-  box-shadow: 2px 0px 10px rgba(49, 3, 3, 0.3);
+  box-shadow: 2px 0px 10px rgba(0,0,0,0.3);
 
   background: linear-gradient(
     270deg,
@@ -153,6 +189,7 @@ body{
   );
 
   background-size: 400% 400%;
+
   animation: gradientMove 6s ease infinite;
 }
 
@@ -163,7 +200,7 @@ body{
 }
 
 /* =========================
-   SIDEBAR HEADING
+   SIDEBAR HEADER
 ========================= */
 
 .heading-box{
@@ -172,11 +209,15 @@ body{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 10px;
+  padding: 15px;
 
-  padding: 10px;
+  flex-shrink: 0;
 
   border-bottom: 1px solid rgba(255,255,255,0.2);
 }
+
+/* HEADING */
 
 .heading-dashboard{
   color: white;
@@ -208,11 +249,29 @@ body{
 ========================= */
 
 .menu-list{
-  margin-top: 10px;
+  flex: 1;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding: 10px;
 }
 
 /* =========================
-   MENU ITEM
+   SCROLLBAR
+========================= */
+
+.menu-list::-webkit-scrollbar{
+  width: 5px;
+}
+
+.menu-list::-webkit-scrollbar-thumb{
+  background-color: rgba(255,255,255,0.4);
+  border-radius: 10px;
+}
+
+/* =========================
+   MENU ITEMS
 ========================= */
 
 .slider-items{
@@ -227,8 +286,9 @@ body{
   width: 100%;
 
   display: flex;
-  justify-content: space-between;
   align-items: center;
+
+  gap: 10px;
 
   padding: 12px;
 
@@ -245,6 +305,7 @@ body{
 
 .menu-title:hover{
   background: rgba(255,255,255,0.1);
+
   transform: scale(1.02);
 }
 
@@ -257,15 +318,16 @@ body{
 }
 
 /* =========================
-   SUB MENU
+   SUBMENU
 ========================= */
 
 .submenu{
   margin-top: 5px;
+
   padding-left: 15px;
 }
 
-/* LINK */
+/* LINKS */
 
 .submenu a{
   display: block;
@@ -277,6 +339,7 @@ body{
   list-style: none;
 
   margin-top: 5px;
+
   padding: 10px;
 
   border-radius: 6px;
@@ -302,22 +365,35 @@ body{
 
 .main-content{
   width: 100%;
-  /* FIX */
+
   margin-top: 55px;
-  background-color:hotpink;
+
+  
+
   overflow-x: hidden;
+
+  min-height: 100vh;
+
+  background-color: hotpink;
 }
 
 /* =========================
-   SCROLLBAR
+   MOBILE RESPONSIVE
 ========================= */
 
-.sidebar::-webkit-scrollbar{
-  width: 5px;
-}
+@media(max-width:768px){
 
-.sidebar::-webkit-scrollbar-thumb{
-  background-color: rgba(255,255,255,0.4);
-  border-radius: 10px;
-}
+  .sidebar{
+    width: 230px;
+    left: -230px;
+  }
 
+  .sidebar.active{
+    left: 0;
+  }
+
+  .heading-dashboard{
+    font-size: 20px;
+  }
+
+}
