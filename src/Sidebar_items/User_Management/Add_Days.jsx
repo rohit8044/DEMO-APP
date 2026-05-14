@@ -32,7 +32,7 @@ export default function Add_Day() {
 
                         <thead>
                             <tr>
-                                <th>ID</th>
+                               
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
@@ -47,7 +47,7 @@ export default function Add_Day() {
                                 return (
                                     <tr key={index}>
 
-                                        <td>{res.id}</td>
+                                       
                                         <td>{res.name}</td>
                                         <td>{res.email}</td>
                                         <td>{res.role}</td>
