@@ -27,10 +27,7 @@ export default function Firstdashboard() {
   useEffect(() => {
   const handleClickOutside = (event) => {
  if (
-  open &&
-  sidebarRef.current &&
-  !sidebarRef.current.contains(event.target) &&
-  !event.target.closest(".menu-icon")
+  open && sidebarRef.current && !sidebarRef.current.contains(event.target) && !event.target.closest(".menu-icon")
 ) {
   setOpen(false);
 }
@@ -49,10 +46,9 @@ export default function Firstdashboard() {
       {/* Top Bar */}
       <div className="top-bar">
 
-<div 
-   className={`menu-icon ${open ? "active" : ""}`} 
+<div className={`menu-icon ${open ? "active" : ""}`} 
             onClick={() => setOpen(prev => !prev)}>
-        <span></span>
+          <span></span>
           <span></span>
           <span></span>
         </div>

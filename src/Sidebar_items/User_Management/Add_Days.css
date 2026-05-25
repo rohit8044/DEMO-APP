@@ -144,4 +144,30 @@
         min-width: 600px;
     }
 }
+.loading-container{
+    width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.loading-container .loading-spinner{
+    width:80px;
+    height:80px;
+    border:8px solid rgba(255,255,255,0.2);
+    border-top:8px solid #3b82f6;
+    border-radius:50%;
+    animation: spin 1s linear infinite;
+    margin-left: 20px;
+}
+
+@keyframes spin{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
 

@@ -1,0 +1,150 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+.remove-wrapper{
+    width:100%;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:linear-gradient(
+        -45deg,
+        #ff416c,
+        #ff4b2b,
+        #8e2de2,
+        #4a00e0
+    );
+
+    background-size:400% 400%;
+    animation:bgAnimation 12s ease infinite;
+}
+
+@keyframes bgAnimation{
+    0%{
+        background-position:0% 50%;
+    }
+    50%{
+        background-position:100% 50%;
+    }
+    100%{
+        background-position:0% 50%;
+    }
+}
+
+.remove-form{
+    width:380px;
+    padding:35px;
+
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+
+    border-radius:25px;
+
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.2);
+
+    box-shadow:
+        0 8px 32px rgba(0,0,0,.25);
+
+    animation:fadeIn .8s ease;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.remove-form h1{
+    text-align:center;
+    color:white;
+    font-size:30px;
+    margin-bottom:10px;
+}
+
+.remove-form input{
+    width:100%;
+    padding:14px;
+
+    border:none;
+    outline:none;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,.15);
+
+    color:white;
+    font-size:16px;
+
+    transition:.3s;
+}
+
+.remove-form input::placeholder{
+    color:rgba(255,255,255,.7);
+}
+
+.remove-form input:focus{
+    background:rgba(255,255,255,.25);
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 0 15px rgba(255,255,255,.35);
+}
+
+.remove-form button{
+    padding:15px;
+
+    border:none;
+    border-radius:12px;
+
+    font-size:16px;
+    font-weight:700;
+
+    cursor:pointer;
+
+    color:white;
+
+    background:linear-gradient(
+        45deg,
+        #ff1744,
+        #ff5252
+    );
+
+    transition:.3s;
+}
+
+.remove-form button:hover{
+    transform:translateY(-4px);
+
+    box-shadow:
+        0 10px 20px rgba(255,23,68,.4);
+}
+
+.remove-form button:active{
+    transform:scale(.98);
+}
+
+.remove-form button:disabled{
+    opacity:.7;
+    cursor:not-allowed;
+}
+
+.remove-form:hover{
+    transform:translateY(-5px);
+    transition:.4s;
+}

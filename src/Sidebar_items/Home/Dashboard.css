@@ -19,7 +19,7 @@ body{
     /* Desktop */
     grid-template-columns: repeat(2,1fr);
 
-    gap: 25px;
+    gap: 10px;
     background: linear-gradient(135deg,#0f172a,#1e293b,#111827);
 }
 
