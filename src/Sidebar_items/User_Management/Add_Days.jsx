@@ -32,35 +32,43 @@ export default function Add_Day() {
 
     return (
         <>
-            <div className='Daycontainer'>
-                <div className='table-items'>
-                    <table border="1">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Department</th>
-                                <th>Salary</th>
-                            </tr>
-                        </thead>
+           <div className="dashboard-container">
+    <div className="table-card">
+        <div className="table-header">
+            <h2>Employee Management</h2>
+            <span>Total Employees: {data.length}</span>
+        </div>
 
-                        <tbody>
-                            {data.map((res, index) => (
-                                <tr key={index}>
-                                    <td>{res.id}</td>
-                                    <td>{res.name}</td>
-                                    <td>{res.email}</td>
-                                    <td>{res.role}</td>
-                                    <td>{res.department}</td>
-                                    <td>{res.salary}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <div className="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Department</th>
+                        <th>Salary</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {data.map((res) => (
+                        <tr key={res.id}>
+                            <td>{res.id}</td>
+                            <td>{res.name}</td>
+                            <td>{res.email}</td>
+                            <td>{res.role}</td>
+                            <td>{res.department}</td>
+                            <td>₹{res.salary}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+               
         </>
     )
 }
