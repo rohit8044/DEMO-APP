@@ -11,7 +11,7 @@ export default function Manage_Apk_Users() {
       setLoading(true);
 
       const res = await axios.post(
-        "http://localhost:3000/SendOTP",
+        "https://backend-api-2-qep2.onrender.com/SendOTP",
         {
           phone
         }
