@@ -10,36 +10,36 @@ export default function Manage_Apk_Users() {
 
   const states = [
     { state: "India", code: "+91" },
-  { state: "United States", code: "+1" },
-  { state: "Canada", code: "+1" },
-  { state: "United Kingdom", code: "+44" },
-  { state: "Australia", code: "+61" },
-  { state: "Germany", code: "+49" },
-  { state: "France", code: "+33" },
-  { state: "Italy", code: "+39" },
-  { state: "Spain", code: "+34" },
-  { state: "Japan", code: "+81" },
-  { state: "China", code: "+86" },
-  { state: "Russia", code: "+7" },
-  { state: "Brazil", code: "+55" },
-  { state: "Mexico", code: "+52" },
-  { state: "South Korea", code: "+82" },
-  { state: "Singapore", code: "+65" },
-  { state: "Malaysia", code: "+60" },
-  { state: "Thailand", code: "+66" },
-  { state: "UAE", code: "+971" },
-  { state: "Saudi Arabia", code: "+966" },
-  { state: "Pakistan", code: "+92" },
-  { state: "Bangladesh", code: "+880" },
-  { state: "Nepal", code: "+977" },
-  { state: "Sri Lanka", code: "+94" },
+    { state: "United States", code: "+1" },
+    { state: "Canada", code: "+1" },
+    { state: "United Kingdom", code: "+44" },
+    { state: "Australia", code: "+61" },
+    { state: "Germany", code: "+49" },
+    { state: "France", code: "+33" },
+    { state: "Italy", code: "+39" },
+    { state: "Spain", code: "+34" },
+    { state: "Japan", code: "+81" },
+    { state: "China", code: "+86" },
+    { state: "Russia", code: "+7" },
+    { state: "Brazil", code: "+55" },
+    { state: "Mexico", code: "+52" },
+    { state: "South Korea", code: "+82" },
+    { state: "Singapore", code: "+65" },
+    { state: "Malaysia", code: "+60" },
+    { state: "Thailand", code: "+66" },
+    { state: "UAE", code: "+971" },
+    { state: "Saudi Arabia", code: "+966" },
+    { state: "Pakistan", code: "+92" },
+    { state: "Bangladesh", code: "+880" },
+    { state: "Nepal", code: "+977" },
+    { state: "Sri Lanka", code: "+94" },
   ];
 
   const handleStateChange = (e) => {
     const value = e.target.value;
 
     const selected = states.find(
-      (item) => item.state === value 
+      (item) => item.state === value
     );
 
     setSelectedState(value);
@@ -49,7 +49,7 @@ export default function Manage_Apk_Users() {
   const sendOtp = async () => {
     try {
       if (!selectedState) {
-        setMessage("Please select a state/country");
+        setMessage("Please select a country");
         return;
       }
 
@@ -58,10 +58,17 @@ export default function Manage_Apk_Users() {
         return;
       }
 
+      if (phone.length < 6) {
+        setMessage("Please enter a valid mobile number");
+        return;
+      }
+
       setLoading(true);
       setMessage("");
 
       const fullPhone = `${countryCode}${phone}`;
+
+      console.log("Sending OTP To:", fullPhone);
 
       const res = await axios.post(
         "https://backend-api-2-qep2.onrender.com/SendOTP",
@@ -71,10 +78,18 @@ export default function Manage_Apk_Users() {
         }
       );
 
-      setMessage(res.data.message);
+      console.log("Response:", res.data);
+
+      setMessage(
+        res.data.message || "OTP Sent Successfully"
+      );
     } catch (error) {
+      console.log("Error:", error);
+      console.log("Error Response:", error.response);
+
       setMessage(
         error.response?.data?.message ||
+          error.message ||
           "OTP Send Failed"
       );
     } finally {
@@ -85,15 +100,14 @@ export default function Manage_Apk_Users() {
   return (
     <div style={styles.container}>
       <div style={styles.card}>
-        <div style={styles.logo>📞</div>
+        <div style={styles.logo}>📞</div>
 
         <h1 style={styles.title}>
           Phone Verification
         </h1>
 
         <p style={styles.subtitle}>
-          Select state/country and enter your
-          mobile number
+          Select country and enter your mobile number
         </p>
 
         <select
@@ -102,7 +116,7 @@ export default function Manage_Apk_Users() {
           style={styles.select}
         >
           <option value="">
-            Select State / Country
+            Select Country
           </option>
 
           {states.map((item) => (
@@ -122,8 +136,9 @@ export default function Manage_Apk_Users() {
 
           <input
             type="text"
-            placeholder="9508606398"
+            placeholder="Enter Mobile Number"
             value={phone}
+            maxLength={15}
             onChange={(e) =>
               setPhone(
                 e.target.value.replace(/\D/g, "")
@@ -139,6 +154,7 @@ export default function Manage_Apk_Users() {
           style={{
             ...styles.button,
             opacity: loading ? 0.8 : 1,
+            cursor: loading ? "not-allowed" : "pointer",
           }}
         >
           {loading
@@ -151,15 +167,13 @@ export default function Manage_Apk_Users() {
             style={{
               ...styles.messageBox,
               background:
-                message
-                  .toLowerCase()
-                  .includes("failed")
+                message.toLowerCase().includes("fail") ||
+                message.toLowerCase().includes("error")
                   ? "#fee2e2"
                   : "#dcfce7",
               color:
-                message
-                  .toLowerCase()
-                  .includes("failed")
+                message.toLowerCase().includes("fail") ||
+                message.toLowerCase().includes("error")
                   ? "#dc2626"
                   : "#15803d",
             }}
@@ -261,7 +275,6 @@ const styles = {
     color: "#fff",
     fontSize: "16px",
     fontWeight: "600",
-    cursor: "pointer",
   },
 
   messageBox: {
@@ -270,5 +283,6 @@ const styles = {
     borderRadius: "12px",
     fontWeight: "600",
     fontSize: "14px",
+    wordBreak: "break-word",
   },
 };
