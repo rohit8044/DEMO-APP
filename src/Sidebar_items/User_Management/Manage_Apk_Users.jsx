@@ -3,17 +3,40 @@ import axios from "axios";
 
 export default function Manage_Apk_Users() {
   const [phone, setPhone] = useState("");
+  const [stateName, setStateName] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const states = [
+    "Bihar",
+    "Uttar Pradesh",
+    "Delhi",
+    "Maharashtra",
+    "Punjab",
+    "Rajasthan",
+    "Gujarat",
+    "West Bengal",
+    "Tamil Nadu",
+    "Karnataka",
+    "Haryana",
+    "Madhya Pradesh",
+    "Jharkhand",
+    "Odisha",
+    "Kerala",
+    "Assam",
+    "Chhattisgarh",
+  ];
 
   const sendOtp = async () => {
     try {
       setLoading(true);
+      setMessage("");
 
       const res = await axios.post(
         "https://backend-api-2-qep2.onrender.com/SendOTP",
         {
-          phone
+          phone,
+          state: stateName,
         }
       );
 
@@ -30,11 +53,31 @@ export default function Manage_Apk_Users() {
   return (
     <div style={styles.container}>
       <div style={styles.card}>
-        <h2>Phone Verification</h2>
+        <div style={styles.logo}>📱</div>
+
+        <h1 style={styles.title}>Phone Verification</h1>
+
+        <p style={styles.subtitle}>
+          Enter your phone number and state to receive OTP
+        </p>
+
+        <select
+          value={stateName}
+          onChange={(e) => setStateName(e.target.value)}
+          style={styles.select}
+        >
+          <option value="">Select State</option>
+
+          {states.map((state, index) => (
+            <option key={index} value={state}>
+              {state}
+            </option>
+          ))}
+        </select>
 
         <input
           type="text"
-          placeholder="+919876543210"
+          placeholder="+91 9876543210"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           style={styles.input}
@@ -43,15 +86,30 @@ export default function Manage_Apk_Users() {
         <button
           onClick={sendOtp}
           disabled={loading}
-          style={styles.button}
+          style={{
+            ...styles.button,
+            opacity: loading ? 0.8 : 1,
+          }}
         >
-          {loading ? "Sending..." : "Send OTP"}
+          {loading ? "Sending OTP..." : "Send OTP"}
         </button>
 
         {message && (
-          <p style={styles.message}>
+          <div
+            style={{
+              ...styles.messageBox,
+              background:
+                message.toLowerCase().includes("failed")
+                  ? "#fee2e2"
+                  : "#dcfce7",
+              color:
+                message.toLowerCase().includes("failed")
+                  ? "#dc2626"
+                  : "#15803d",
+            }}
+          >
             {message}
-          </p>
+          </div>
         )}
       </div>
     </div>
@@ -60,40 +118,86 @@ export default function Manage_Apk_Users() {
 
 const styles = {
   container: {
-    height: "100vh",
+    minHeight: "100vh",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    background: "#f5f5f5",
+    background:
+      "linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #9333ea 100%)",
+    padding: "20px",
+    fontFamily: "Arial, sans-serif",
   },
+
   card: {
-    width: "350px",
-    padding: "30px",
-    borderRadius: "10px",
-    background: "#fff",
-    boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+    width: "100%",
+    maxWidth: "420px",
+    background: "#ffffff",
+    borderRadius: "24px",
+    padding: "40px 30px",
+    boxShadow: "0 20px 50px rgba(0,0,0,0.15)",
     textAlign: "center",
   },
+
+  logo: {
+    fontSize: "50px",
+    marginBottom: "15px",
+  },
+
+  title: {
+    margin: 0,
+    color: "#111827",
+    fontSize: "30px",
+    fontWeight: "700",
+  },
+
+  subtitle: {
+    color: "#6b7280",
+    fontSize: "14px",
+    marginTop: "10px",
+    marginBottom: "25px",
+  },
+
+  select: {
+    width: "100%",
+    padding: "14px",
+    border: "1px solid #d1d5db",
+    borderRadius: "12px",
+    marginBottom: "15px",
+    fontSize: "15px",
+    outline: "none",
+    boxSizing: "border-box",
+    background: "#fff",
+  },
+
   input: {
     width: "100%",
-    padding: "12px",
-    marginTop: "10px",
-    borderRadius: "5px",
-    border: "1px solid #ccc",
+    padding: "14px",
+    border: "1px solid #d1d5db",
+    borderRadius: "12px",
+    fontSize: "15px",
     outline: "none",
+    marginBottom: "20px",
+    boxSizing: "border-box",
   },
+
   button: {
     width: "100%",
-    padding: "12px",
-    marginTop: "15px",
-    background: "#007bff",
-    color: "#fff",
+    padding: "15px",
     border: "none",
-    borderRadius: "5px",
+    borderRadius: "12px",
+    background:
+      "linear-gradient(135deg,#4f46e5,#7c3aed)",
+    color: "#fff",
+    fontSize: "16px",
+    fontWeight: "600",
     cursor: "pointer",
   },
-  message: {
-    marginTop: "15px",
-    fontWeight: "bold",
+
+  messageBox: {
+    marginTop: "20px",
+    padding: "14px",
+    borderRadius: "12px",
+    fontWeight: "600",
+    fontSize: "14px",
   },
 };
