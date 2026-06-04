@@ -85,7 +85,7 @@ export default function Manage_Apk_Users() {
   return (
     <div style={styles.container}>
       <div style={styles.card}>
-        <div style={styles.logo}>📱</div>
+        <div style={styles.logo}>MAD=ANKI</div>
 
         <h1 style={styles.title}>
           Phone Verification
