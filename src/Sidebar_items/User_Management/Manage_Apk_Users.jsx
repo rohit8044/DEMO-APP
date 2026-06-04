@@ -3,39 +3,69 @@ import axios from "axios";
 
 export default function Manage_Apk_Users() {
   const [phone, setPhone] = useState("");
-  const [stateName, setStateName] = useState("");
+  const [selectedState, setSelectedState] = useState("");
+  const [countryCode, setCountryCode] = useState("+91");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const states = [
+    { state: "Bihar", code: "+91" },
+    { state: "Uttar Pradesh", code: "+91" },
+    { state: "Delhi", code: "+91" },
+    { state: "Maharashtra", code: "+91" },
+    { state: "Punjab", code: "+91" },
+    { state: "Rajasthan", code: "+91" },
+    { state: "Gujarat", code: "+91" },
+    { state: "West Bengal", code: "+91" },
+    { state: "Tamil Nadu", code: "+91" },
+    { state: "Karnataka", code: "+91" },
+    { state: "USA", code: "+1" },
+    { state: "Canada", code: "+1" },
+    { state: "United Kingdom", code: "+44" },
+    { state: "Australia", code: "+61" },
+  ];
+
+  const handleStateChange = (e) => {
+    const value = e.target.value;
+
+    const selected = states.find(
+      (item) => item.state === value
+    );
+
+    setSelectedState(value);
+    setCountryCode(selected?.code || "+91");
+  };
+
   const sendOtp = async () => {
     try {
-      if (!stateName) {
-        setMessage("Please select a state");
+      if (!selectedState) {
+        setMessage("Please select a state/country");
         return;
       }
 
-      if (phone.length !== 10) {
-        setMessage("Please enter a valid 10 digit mobile number");
+      if (!phone) {
+        setMessage("Please enter mobile number");
         return;
       }
 
       setLoading(true);
       setMessage("");
 
-      const fullPhone = `+91${phone}`;
+      const fullPhone = `${countryCode}${phone}`;
 
       const res = await axios.post(
         "https://backend-api-2-qep2.onrender.com/SendOTP",
         {
           phone: fullPhone,
-          state: stateName,
+          state: selectedState,
         }
       );
 
       setMessage(res.data.message);
     } catch (error) {
       setMessage(
-        error.response?.data?.message || "OTP Send Failed"
+        error.response?.data?.message ||
+          "OTP Send Failed"
       );
     } finally {
       setLoading(false);
@@ -47,48 +77,47 @@ export default function Manage_Apk_Users() {
       <div style={styles.card}>
         <div style={styles.logo}>📱</div>
 
-        <h1 style={styles.title}>Phone Verification</h1>
+        <h1 style={styles.title}>
+          Phone Verification
+        </h1>
 
         <p style={styles.subtitle}>
-          Select your state and enter mobile number
+          Select state/country and enter your
+          mobile number
         </p>
 
         <select
-          value={stateName}
-          onChange={(e) => setStateName(e.target.value)}
+          value={selectedState}
+          onChange={handleStateChange}
           style={styles.select}
         >
-          <option value="">Select State</option>
+          <option value="">
+            Select State / Country
+          </option>
 
-          <option value="Bihar">Bihar</option>
-          <option value="Uttar Pradesh">Uttar Pradesh</option>
-          <option value="Delhi">Delhi</option>
-          <option value="Maharashtra">Maharashtra</option>
-          <option value="Punjab">Punjab</option>
-          <option value="Rajasthan">Rajasthan</option>
-          <option value="Gujarat">Gujarat</option>
-          <option value="West Bengal">West Bengal</option>
-          <option value="Tamil Nadu">Tamil Nadu</option>
-          <option value="Karnataka">Karnataka</option>
-          <option value="Haryana">Haryana</option>
-          <option value="Madhya Pradesh">Madhya Pradesh</option>
-          <option value="Jharkhand">Jharkhand</option>
-          <option value="Odisha">Odisha</option>
-          <option value="Kerala">Kerala</option>
-          <option value="Assam">Assam</option>
-          <option value="Chhattisgarh">Chhattisgarh</option>
+          {states.map((item) => (
+            <option
+              key={item.state}
+              value={item.state}
+            >
+              {item.state}
+            </option>
+          ))}
         </select>
 
         <div style={styles.phoneContainer}>
-          <div style={styles.countryCode}>+91</div>
+          <div style={styles.countryCode}>
+            {countryCode}
+          </div>
 
           <input
             type="text"
             placeholder="9508606398"
-            maxLength={10}
             value={phone}
             onChange={(e) =>
-              setPhone(e.target.value.replace(/\D/g, ""))
+              setPhone(
+                e.target.value.replace(/\D/g, "")
+              )
             }
             style={styles.phoneInput}
           />
@@ -102,23 +131,27 @@ export default function Manage_Apk_Users() {
             opacity: loading ? 0.8 : 1,
           }}
         >
-          {loading ? "Sending OTP..." : "Send OTP"}
+          {loading
+            ? "Sending OTP..."
+            : "Send OTP"}
         </button>
 
         {message && (
           <div
             style={{
               ...styles.messageBox,
-              background: message
-                .toLowerCase()
-                .includes("failed")
-                ? "#fee2e2"
-                : "#dcfce7",
-              color: message
-                .toLowerCase()
-                .includes("failed")
-                ? "#dc2626"
-                : "#15803d",
+              background:
+                message
+                  .toLowerCase()
+                  .includes("failed")
+                  ? "#fee2e2"
+                  : "#dcfce7",
+              color:
+                message
+                  .toLowerCase()
+                  .includes("failed")
+                  ? "#dc2626"
+                  : "#15803d",
             }}
           >
             {message}
@@ -147,7 +180,8 @@ const styles = {
     background: "#fff",
     borderRadius: "24px",
     padding: "40px 30px",
-    boxShadow: "0 20px 50px rgba(0,0,0,0.15)",
+    boxShadow:
+      "0 20px 50px rgba(0,0,0,0.15)",
     textAlign: "center",
   },
 
@@ -175,8 +209,8 @@ const styles = {
     padding: "14px",
     border: "1px solid #d1d5db",
     borderRadius: "12px",
-    fontSize: "15px",
     marginBottom: "15px",
+    fontSize: "15px",
     outline: "none",
     boxSizing: "border-box",
   },
@@ -187,16 +221,15 @@ const styles = {
   },
 
   countryCode: {
-    width: "70px",
+    width: "80px",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     border: "1px solid #d1d5db",
     borderRight: "none",
     borderRadius: "12px 0 0 12px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    background: "#f9fafb",
+    background: "#f3f4f6",
     fontWeight: "600",
-    color: "#111827",
   },
 
   phoneInput: {
@@ -204,8 +237,8 @@ const styles = {
     padding: "14px",
     border: "1px solid #d1d5db",
     borderRadius: "0 12px 12px 0",
-    outline: "none",
     fontSize: "15px",
+    outline: "none",
   },
 
   button: {
